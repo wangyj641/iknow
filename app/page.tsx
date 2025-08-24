@@ -1,17 +1,44 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [messages, setMessages] = useState([
+    { role: "system", content: "You are a helpful assistant." },
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function sendMessage() {
+    if (!input.trim()) return;
+
+    const newMessages = [...messages, { role: "user", content: input }];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const resp = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages, model: "gpt-4o-mini" }),
+      });
+      const data = await resp.json();
+      const reply = data?.choices?.[0]?.message?.content || "❌ 无输出";
+      setMessages([...newMessages, { role: "assistant", content: reply }]);
+    } catch (e) {
+      setMessages([
+        ...newMessages,
+        { role: "assistant", content: "❌ 请求失败" },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
@@ -32,23 +59,41 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
             Deploy now
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+          <textarea
+            className="flex-1 border rounded-lg p-2"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="输入消息，回车发送"
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
+          />
+          <button
+            onClick={sendMessage}
+            className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
+            disabled={loading}
           >
-            Read our docs
-          </a>
+            发送
+          </button>
+        </div>
+
+        <div className="border rounded-lg p-4 h-[60vh] overflow-auto space-y-2 bg-gray-50">
+          {messages.map((m, i) => (
+            <div
+              key={i}
+              className={m.role === "user" ? "text-right" : "text-left"}
+            >
+              <div
+                className={`inline-block px-3 py-2 rounded-xl max-w-[80%] ${
+                  m.role === "user" ? "bg-indigo-600 text-white" : "bg-gray-200"
+                }`}
+              >
+                {m.content}
+              </div>
+            </div>
+          ))}
+          {loading && <div className="text-gray-400">助手正在回复...</div>}
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
