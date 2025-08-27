@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 const llm = new ChatOpenAI({
   apiKey: process.env.GITHUB_TOKEN, // PAT 需包含 models:read
-  model: "openai/gpt-4.1", // ✅ 带 publisher 前缀，示例见下
+  model: "openai/gpt-4o-mini", // ✅ 带 publisher 前缀，示例见下
   temperature: 0.2,
   configuration: {
     baseURL: "https://models.github.ai/inference",

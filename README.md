@@ -41,6 +41,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `npm run start` – Start production server
 - `npm run lint` – Run ESLint
 
+## Run jupter
+
+- `py -m jupyter notebook`
+
 ## Project Structure
 
 ```

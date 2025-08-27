@@ -9,7 +9,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function sendMessage() {
+  async function sendMessage1() {
     if (!input.trim()) return;
 
     const newMessages = [...messages, { role: "user", content: input }];
@@ -18,7 +18,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const resp = await fetch("/api/ai", {
+      const resp = await fetch("api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
@@ -36,35 +36,9 @@ export default function Home() {
     }
   }
 
-  async function sendMessage() {
+  async function sendMessage2() {
     if (!input.trim()) return;
 
-    const newMessages = [...messages, { role: "user", content: input }];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
-
-    try {
-      const resp = await fetch("/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
-      });
-      const data = await resp.json();
-      const reply = data?.choices?.[0]?.message?.content || "❌ 无输出";
-      setMessages([...newMessages, { role: "assistant", content: reply }]);
-    } catch (e) {
-      setMessages([
-        ...newMessages,
-        { role: "assistant", content: "❌ 请求失败" },
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const send = async () => {
-    if (!input.trim()) return;
     const newMessages = [...messages, { role: "user", content: input }];
     setMessages(newMessages);
     setInput("");
@@ -85,7 +59,7 @@ export default function Home() {
       { role: "assistant", content: String(data.output ?? "") },
     ]);
     setLoading(false);
-  };
+  }
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -116,14 +90,14 @@ export default function Home() {
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
           />
           <button
-            onClick={sendMessage}
+            onClick={sendMessage1}
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
             disabled={loading}
           >
             openAI
           </button>
           <button
-            onClick={send}
+            onClick={sendMessage2}
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
             disabled={loading}
           >
