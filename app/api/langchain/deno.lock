@@ -1,8 +1,11 @@
 {
   "version": "5",
   "specifiers": {
-    "npm:@langchain/core@0.1.48": "0.1.48_zod@3.25.76",
-    "npm:@langchain/openai@0.0.22": "0.0.22_zod@3.25.76_openai@4.104.0__zod@3.25.76"
+    "npm:@langchain/core@*": "0.1.48_zod@3.25.76_openai@4.104.0__zod@3.25.76",
+    "npm:@langchain/core@0.1.48": "0.1.48_zod@3.25.76_openai@4.104.0__zod@3.25.76",
+    "npm:@langchain/openai@*": "0.0.22_zod@3.25.76_openai@4.104.0__zod@3.25.76",
+    "npm:@langchain/openai@0.0.22": "0.0.22_zod@3.25.76_openai@4.104.0__zod@3.25.76",
+    "npm:openai@*": "4.104.0_zod@3.25.76"
   },
   "npm": {
     "@langchain/core@0.1.48_openai@4.104.0__zod@3.25.76_zod@3.25.76": {
@@ -22,6 +25,22 @@
       ]
     },
     "@langchain/core@0.1.48_zod@3.25.76": {
+      "integrity": "sha512-kGggyDbaYzCIPGkzvMvm/v0+lcTy1jlX6QZ7PSzUQFYJg5JK399x3AOYIDkbbUVxBAyHRgrWlxVQXH0FW3N6Bg==",
+      "dependencies": [
+        "ansi-styles",
+        "camelcase",
+        "decamelize",
+        "js-tiktoken",
+        "langsmith",
+        "ml-distance",
+        "p-queue",
+        "p-retry",
+        "uuid@9.0.1",
+        "zod",
+        "zod-to-json-schema"
+      ]
+    },
+    "@langchain/core@0.1.48_zod@3.25.76_openai@4.104.0__zod@3.25.76": {
       "integrity": "sha512-kGggyDbaYzCIPGkzvMvm/v0+lcTy1jlX6QZ7PSzUQFYJg5JK399x3AOYIDkbbUVxBAyHRgrWlxVQXH0FW3N6Bg==",
       "dependencies": [
         "ansi-styles",
@@ -397,7 +416,10 @@
   "remote": {
     "https://deno.land/std@0.220.0/dotenv/mod.ts": "0180eaeedaaf88647318811cdaa418cc64dc51fb08354f91f5f480d0a1309f7d",
     "https://deno.land/std@0.220.0/dotenv/parse.ts": "09977ff88dfd1f24f9973a338f0f91bbdb9307eb5ff6085446e7c423e4c7ba0c",
-    "https://deno.land/std@0.220.0/dotenv/stringify.ts": "0047ad7068289735d08964046aea267a750c141b494ca0e38831b89be6c020c2"
+    "https://deno.land/std@0.220.0/dotenv/stringify.ts": "0047ad7068289735d08964046aea267a750c141b494ca0e38831b89be6c020c2",
+    "https://deno.land/std@0.224.0/dotenv/mod.ts": "0180eaeedaaf88647318811cdaa418cc64dc51fb08354f91f5f480d0a1309f7d",
+    "https://deno.land/std@0.224.0/dotenv/parse.ts": "09977ff88dfd1f24f9973a338f0f91bbdb9307eb5ff6085446e7c423e4c7ba0c",
+    "https://deno.land/std@0.224.0/dotenv/stringify.ts": "275da322c409170160440836342eaa7cf012a1d11a7e700d8ca4e7f2f8aa4615"
   },
   "workspace": {
     "dependencies": [

@@ -2,8 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ChatOpenAI } from "@langchain/openai";
 
-export const runtime = "nodejs";
-
 const llm = new ChatOpenAI({
   apiKey: process.env.GITHUB_TOKEN, // PAT 需包含 models:read
   model: "openai/gpt-4o-mini", // ✅ 带 publisher 前缀，示例见下
