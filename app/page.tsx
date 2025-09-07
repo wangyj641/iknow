@@ -75,10 +75,10 @@ export default function Home() {
       </a>
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">Get started by editing.</li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
+          <li className="mb-2 tracking-[-.01em]">
+            Get started by entering your question.
           </li>
+          <li className="tracking-[-.01em]">Two modes for you.</li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
